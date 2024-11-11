@@ -5,34 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Browse Books</title>
     <link rel="stylesheet" href="/static/css/styles.css">
+    <style>
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        .grid-item {
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
 </head>
 <body>
     <header>
         <h1>Browse Books</h1>
+        {% if user.is_authenticated %}
+            <p>Welcome, {{ user.username }}! <a href="{% url 'logout' %}">Logout</a></p>
+        {% else %}
+            <p><a href="{% url 'login' %}">Login</a></p>
+        {% endif %}
     </header>
     <main>
         <section>
-            <form method="GET" action="/browse">
-                <label for="sort">Sort by:</label>
-                <select name="sort" id="sort">
-                    <option value="popularity">Popularity</option>
-                    <option value="author">Author</option>
-                    <option value="genre">Genre</option>
-                </select>
-                <button type="submit">Sort</button>
-            </form>
-        </section>
-        <section>
-            <ul id="book-list">
+            <div class="grid-container" id="book-list">
                 {% for book in books %}
-                <li>
+                <div class="grid-item">
                     <h2>{{ book.title }}</h2>
                     <p>Author: {{ book.author }}</p>
                     <p>Genre: {{ book.genre }}</p>
                     <p>Popularity: {{ book.popularity }}</p>
-                </li>
+                </div>
                 {% endfor %}
-            </ul>
+            </div>
         </section>
     </main>
 </body>
