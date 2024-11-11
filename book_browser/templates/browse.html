@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Browse Books</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Browse Books</h1>
+    </header>
+    <main>
+        <section>
+            <form method="GET" action="/browse">
+                <label for="sort">Sort by:</label>
+                <select name="sort" id="sort">
+                    <option value="popularity">Popularity</option>
+                    <option value="author">Author</option>
+                    <option value="genre">Genre</option>
+                </select>
+                <button type="submit">Sort</button>
+            </form>
+        </section>
+        <section>
+            <ul id="book-list">
+                {% for book in books %}
+                <li>
+                    <h2>{{ book.title }}</h2>
+                    <p>Author: {{ book.author }}</p>
+                    <p>Genre: {{ book.genre }}</p>
+                    <p>Popularity: {{ book.popularity }}</p>
+                </li>
+                {% endfor %}
+            </ul>
+        </section>
+    </main>
+</body>
+</html>
