@@ -1,0 +1,6 @@
+# Ignore pycache files
+__pycache__/
+*.py[cod]
+
+# Ignore the database
+db.sqlite3
