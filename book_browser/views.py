@@ -7,7 +7,7 @@ from .models import Book, ReadingList, UserProfile, Author, Genre
 
 @login_required
 def index(request):
-    # Fetch recommendations (for simplicity, we'll just fetch the top 5 ranked books)
+    # Fetch recommendations
     recommendations = Book.objects.order_by('-rating')[:5]
 
     user = request.user

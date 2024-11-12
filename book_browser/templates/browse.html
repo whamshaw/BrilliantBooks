@@ -31,21 +31,25 @@
                         </div>
                 {% elif sort_by == 'author' %}
                     {% for author in authors %}
+                    <section class="container">
                         <h2>{{ author.name }}</h2>
                         <div class="grid-container" id="book-list">
                             {% for book in author.books.all %}
                                 {% include '_book_card.html' %}
                             {% endfor %}
                         </div>
+                    </section>
                     {% endfor %}
                 {% elif sort_by == 'genre' %}
                     {% for genre in genres %}
+                    <section class="container">
                         <h2>{{ genre.name }}</h2>
                         <div class="grid-container" id="book-list">
                             {% for book in genre.books.all %}
                                 {% include '_book_card.html' %}
                             {% endfor %}
                         </div>
+                    </section>
                     {% endfor %}
                 {% endif %}
             </section>
