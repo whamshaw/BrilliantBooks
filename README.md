@@ -6,12 +6,21 @@ Books are a uniquely portable magic.
 
 BrilliantBooks is a web application that allows users to discover books and curate a reading list. Users can search for books and authors that they know, or browse for books by author, genre, or popularity.
 
+
 ## Features
 
 - **Search**: Users can search for books and authors.
 - **Browse**: Users can browse books by author, genre, or popularity.
 - **Reading List**: Users can add books to their personal reading list and remove them as needed.
 - **Ratings**: Users can rate books and see average ratings.
+
+## Screenshots
+
+### Home Screen
+![Home Screen](media/screenshots/BBHome.png)
+
+### Browse Tab
+![Browse Tab](media/screenshots/BBBrowse.png)
 
 ## Setup and Installation
 
