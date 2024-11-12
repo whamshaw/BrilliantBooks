@@ -1,5 +1,8 @@
 <header class="top-bar">
+    {% load static %}
     <div class="left">
+        <img src="{% static 'media/logo.png' %}" alt="Logo" class="logo">
+
         <h2 onclick="location.href='{% url 'index' %}'">{{ user.username }}'s Library</h2>
         <h3 onclick="location.href='{% url 'logout' %}'">Logout</h3>
     </div>

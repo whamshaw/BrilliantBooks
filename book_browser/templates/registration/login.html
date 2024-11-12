@@ -1,16 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
 </head>
 <body>
-    <h2>Login</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Login</button>
-    </form>
+    <div class="login-container">
+        <div class="card">
+            <div class="card-body">
+                <h2>Login</h2>
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button class="md-btn" type="submit">Login</button>
+                </form>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
