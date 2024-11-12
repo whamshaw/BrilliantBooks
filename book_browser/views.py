@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.template import loader
 from django.db.models import Q
-from .models import Book, ReadingList, UserProfile
+from .models import Book, ReadingList, UserProfile, Author, Genre
 
 @login_required
 def index(request):
@@ -45,22 +45,34 @@ def search_results(request):
 
     return render(request, 'search_results.html', context)
 
+@login_required
 def browse(request, sort_by):
     if sort_by == 'popularity':
         books = Book.objects.order_by('-rating')
+        context = {
+            'sort_by': sort_by,
+            'books': books,
+        }
     elif sort_by == 'author':
-        books = Book.objects.order_by('author__name')
+        authors = Author.objects.prefetch_related('books').all()
+        context = {
+            'sort_by': sort_by,
+            'authors': authors,
+        }
     elif sort_by == 'genre':
-        books = Book.objects.order_by('genre')
+        genres = Genre.objects.prefetch_related('books').all()
+        context = {
+            'sort_by': sort_by,
+            'genres': genres,
+        }
     else:
         books = Book.objects.all()
+        context = {
+            'sort_by': 'all',
+            'books': books,
+        }
 
-    template = loader.get_template('browse.html')
-    context = {
-        'books': books,
-    }
-
-    return HttpResponse(template.render(context, request))
+    return render(request, 'browse.html', context)
 
 @login_required
 def add_to_reading_list(request, book_id):

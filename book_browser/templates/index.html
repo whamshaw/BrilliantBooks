@@ -14,6 +14,16 @@
 <body>
     {% include '_top_bar.html' %}
     <main>
+
+        <section class="container">
+            <h2>Recommended</h2>
+            <div class="grid-container">
+                {% for book in recommendations %}
+                    {% include '_book_card.html' %}
+                {% endfor %}
+            </div>
+        </section>
+
         <section class="container">
             <h2>Your Reading List</h2>
             <div class="grid-container">
@@ -21,15 +31,6 @@
                     {% with book=item.book %}
                         {% include '_book_card.html' %}
                     {% endwith %}
-                {% endfor %}
-            </div>
-        </section>
-
-        <section class="container">
-            <h2>Recommended</h2>
-            <div class="grid-container">
-                {% for book in recommendations %}
-                    {% include '_book_card.html' %}
                 {% endfor %}
             </div>
         </section>

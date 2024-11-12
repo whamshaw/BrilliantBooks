@@ -4,41 +4,51 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Browse Books</title>
-    <link rel="stylesheet" href="/static/css/styles.css">
-    <style>
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 20px;
-        }
-        .grid-item {
-            border: 1px solid #ccc;
-            padding: 10px;
-            border-radius: 5px;
-        }
-    </style>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'star-ratings/css/star-ratings.css' %}">
+    <script type="text/javascript" src="{% static 'star-ratings/js/dist/star-ratings.min.js' %}"></script>
+
+
 </head>
 <body>
-    <header>
-        <h1>Browse Books</h1>
-        {% if user.is_authenticated %}
-            <p>Welcome, {{ user.username }}! <a href="{% url 'logout' %}">Logout</a></p>
-        {% else %}
-            <p><a href="{% url 'login' %}">Login</a></p>
-        {% endif %}
-    </header>
-    <main>
-        <section>
-            <div class="grid-container" id="book-list">
-                {% for book in books %}
-                <div class="grid-item">
-                    <h2>{{ book.title }}</h2>
-                    <p>Author: {{ book.author }}</p>
-                    <p>Genre: {{ book.genre }}</p>
-                    <p>Popularity: {{ book.popularity }}</p>
+    {% include '_top_bar.html' %}
+    <main> 
+        <section class="container">
+                <h1>Browse Books</h1>
+                <div class="browse-buttons">
+                    <button class="md-btn" onclick="location.href='{% url 'browse' 'popularity' %}'">Browse by Popularity</button>
+                    <button class="md-btn" onclick="location.href='{% url 'browse' 'author' %}'">Browse by Author</button>
+                    <button class="md-btn" onclick="location.href='{% url 'browse' 'genre' %}'">Browse by Genre</button>
                 </div>
-                {% endfor %}
-            </div>
+            <section>
+                {% if sort_by == 'popularity' %}
+                    <h2>Top Ranked Books</h2>
+                    <div class="grid-container" id="book-list">
+                        {% for book in books %}
+                            {% include '_book_card.html' %}
+                        {% endfor %}
+                        </div>
+                {% elif sort_by == 'author' %}
+                    {% for author in authors %}
+                        <h2>{{ author.name }}</h2>
+                        <div class="grid-container" id="book-list">
+                            {% for book in author.books.all %}
+                                {% include '_book_card.html' %}
+                            {% endfor %}
+                        </div>
+                    {% endfor %}
+                {% elif sort_by == 'genre' %}
+                    {% for genre in genres %}
+                        <h2>{{ genre.name }}</h2>
+                        <div class="grid-container" id="book-list">
+                            {% for book in genre.books.all %}
+                                {% include '_book_card.html' %}
+                            {% endfor %}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </section>
         </section>
     </main>
 </body>
