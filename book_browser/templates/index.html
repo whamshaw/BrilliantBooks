@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'star-ratings/css/star-ratings.css' %}">
+    <script type="text/javascript" src="{% static 'star-ratings/js/dist/star-ratings.min.js' %}"></script>
+</head>
+
+<body>
+    {% include '_top_bar.html' %}
+    <main>
+        <section class="container">
+            <h2>Your Reading List</h2>
+            <div class="grid-container">
+                {% for item in reading_list %}
+                    {% with book=item.book %}
+                        {% include '_book_card.html' %}
+                    {% endwith %}
+                {% endfor %}
+            </div>
+        </section>
+
+        <section class="container">
+            <h2>Recommended</h2>
+            <div class="grid-container">
+                {% for book in recommendations %}
+                    {% include '_book_card.html' %}
+                {% endfor %}
+            </div>
+        </section>
+    </main>
+</body>
+
+</html>

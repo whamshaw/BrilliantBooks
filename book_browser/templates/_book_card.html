@@ -1,0 +1,22 @@
+<!-- templates/_book_card.html -->
+
+{% load ratings %}
+
+<div class="card grid-item">
+    <div class="book-cover-container">
+        <img src="{{ book.cover.url }}" alt="{{ book.title }} cover" class="book-cover">
+    </div>
+    <h3 class="book-title">{{ book.title }}</h3>
+    <p class="book-author">{{ book.author }}</p>
+
+    <div class="book-rating">
+        <div class="stars">
+            {% ratings book %}
+        </div>
+    </div>
+    {% if book.id in reading_list_book_ids %}
+        <button class="md-btn" onclick="location.href='{% url 'remove_from_reading_list' book.id %}'">Remove from Reading List</button>
+    {% else %}
+        <button class="md-btn" onclick="location.href='{% url 'add_to_reading_list' book.id %}'">Add to Reading List</button>
+    {% endif %}
+</div>
